@@ -10,7 +10,7 @@ interface IReview {
 }
 
 export interface IReviewModel extends Model<IReview> {
-  calcAverageRatings(tourId: Schema.Types.ObjectId): Promise<void>
+  calcAverageRatings(tourId: Schema.Types.ObjectId): Promise<void>;
 }
 
 export default IReview;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Tour from '../Models/tour.model';
 import ITour from '../interfaces/tour.interface';
 
@@ -33,10 +34,21 @@ const deleteTour = async (id: string): Promise<ITour | null> => {
   return result;
 };
 
+const getNextSchedule = async (id: string): Promise<any> => {
+  const tour = await Tour.findById(id);
+  const nextSchedule = tour?.getNextNearestStartDateAndEndDate();
+
+  return {
+    tour,
+    nextSchedule,
+  };
+};
+
 export const tourServices = {
   saveTourInDB,
   findAllTour,
   findATour,
   updateTour,
   deleteTour,
+  getNextSchedule,
 };

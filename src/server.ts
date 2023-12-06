@@ -1,19 +1,19 @@
+/* eslint-disable no-console */
+import mongoose from 'mongoose';
 import app from './app';
 import config from './config';
-import mongoose from 'mongoose';
 
 async function server() {
   try {
-    await mongoose.connect(config.database as string);
+    await mongoose.connect(config.database as string).then(() => {
+      console.log('Database connected successfully');
+    });
     app.listen(config.port, () => {
-      // eslint-disable-next-line no-console
       console.log(`app listening on port http://localhost:${config.port}`);
     });
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.log(error);
   }
 }
 
-// eslint-disable-next-line no-console
 server().catch((error) => console.log(error));

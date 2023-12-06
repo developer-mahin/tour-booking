@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose'
-import { IBooking } from '../interfaces/booking.interface'
+import { Schema, model } from 'mongoose';
+import { IBooking } from '../interfaces/booking.interface';
 
 const bookingSchema = new Schema<IBooking>({
   user: {
@@ -15,17 +15,17 @@ const bookingSchema = new Schema<IBooking>({
     required: [true, 'A booking must have bookedSlots'],
   },
   bookingStatus: {
-    type   : String,
+    type: String,
     enum: ['pending', 'paid', 'cancelled'],
     required: [true, 'A booking must have a bookingStatus'],
   },
-  
+
   price: {
     type: Number,
     required: [true, 'A booking must have a price'],
   },
-})
+});
 
-const Booking = model<IBooking>('Booking', bookingSchema)
+const Booking = model<IBooking>('Booking', bookingSchema);
 
-export default Booking
+export default Booking;

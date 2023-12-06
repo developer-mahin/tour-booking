@@ -1,107 +1,71 @@
-import { NextFunction, Request, Response } from 'express';
 import { tourServices } from '../Services/tour.service';
+import sendResponse from '../../utils/sendResponse';
+import catchAsync from '../../utils/catchAsync';
 
-const createTour = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const tourData = req.body;
-    const result = await tourServices.saveTourInDB(tourData);
-    res.status(201).json({
-      success: true,
-      message: 'successfully created the tour data',
-      data: result,
-    });
-  } catch (error) {
-    let errorMessage = {};
-    if (error instanceof Error) {
-      errorMessage = error;
-      next(errorMessage);
-    }
-  }
-};
+const createTour = catchAsync(async (req, res) => {
+  const result = await tourServices.saveTourInDB(req.body);
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: 'successfully created tour',
+    data: result,
+  });
+});
 
-const findAllTour = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const result = await tourServices.findAllTour();
-    res.status(200).json({
-      success: true,
-      message: 'successfully get all data',
-      data: result,
-    });
-  } catch (error) {
-    let errorMessage = {};
-    if (error instanceof Error) {
-      errorMessage = error;
-      next(errorMessage);
-    }
-  }
-};
+const findAllTour = catchAsync(async (req, res) => {
+  const result = await tourServices.findAllTour();
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: 'successfully created get all tours',
+    data: result,
+  });
+});
 
-const findSingleTour = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const { id } = req.params;
-    const result = await tourServices.findATour(id);
-    res.status(200).json({
-      success: true,
-      message: 'successfully get a single data',
-      data: result,
-    });
-  } catch (error) {
-    let errorMessage = {};
-    if (error instanceof Error) {
-      errorMessage = error;
-      next(errorMessage);
-    }
-  }
-};
+const findSingleTour = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await tourServices.findATour(id);
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: 'successfully get a single tours',
+    data: result,
+  });
+});
 
-const updateTourData = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const { id } = req.params;
-    const updatedDoc = req.body;
-    const result = await tourServices.updateTour(id, updatedDoc);
-    res.status(200).json({
-      success: true,
-      message: 'successfully updated tour data',
-      data: result,
-    });
-  } catch (error) {
-    let errorMessage = {};
-    if (error instanceof Error) {
-      errorMessage = error;
-      next(errorMessage);
-    }
-  }
-};
+const updateTourData = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await tourServices.updateTour(id, req.body);
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: 'successfully update tours',
+    data: result,
+  });
+});
 
-const deleteTourData = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const { id } = req.params;
-    const result = await tourServices.deleteTour(id);
-    res.status(200).json({
-      success: true,
-      message: 'successfully delete the tour',
-      data: result,
-    });
-  } catch (error) {
-    let errorMessage = {};
-    if (error instanceof Error) {
-      errorMessage = error;
-      next(errorMessage);
-    }
-  }
-};
+const deleteTourData = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await tourServices.deleteTour(id);
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: 'successfully delete tours',
+    data: result,
+  });
+});
+
+const getNextSchedule = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await tourServices.getNextSchedule(id);
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: 'successfully get next schedule tours',
+    data: result,
+  });
+});
 
 export const tourController = {
   createTour,
@@ -109,4 +73,5 @@ export const tourController = {
   findSingleTour,
   updateTourData,
   deleteTourData,
+  getNextSchedule,
 };
