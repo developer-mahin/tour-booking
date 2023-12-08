@@ -7,4 +7,5 @@ export default {
   port: process.env.PORT,
   database_local: process.env.DATABASE_URL_LOCAL,
   database: process.env.DATABASE_URL,
+  NODE_ENV: process.env.NODE_ENV,
 };

@@ -1,9 +1,12 @@
 import { tourServices } from '../Services/tour.service';
 import sendResponse from '../../utils/sendResponse';
 import catchAsync from '../../utils/catchAsync';
+import { createTourValidationSchema } from '../Validations/tour.validation';
 
 const createTour = catchAsync(async (req, res) => {
-  const result = await tourServices.saveTourInDB(req.body);
+  const checkValidation = createTourValidationSchema.parse(req.body);
+  const result = await tourServices.saveTourInDB(checkValidation);
+
   sendResponse(res, {
     statusCode: 201,
     success: true,

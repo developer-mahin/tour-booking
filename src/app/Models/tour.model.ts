@@ -41,6 +41,10 @@ const tourSchema = new Schema<ITour, TTourModel, ITourMethods>(
       type: String,
       required: [true, 'The start location is required.'],
     },
+    availableSeats: {
+      type: Number,
+      required: [true, 'At least one location is required.'],
+    },
     location: {
       type: [String],
       required: [true, 'At least one location is required.'],

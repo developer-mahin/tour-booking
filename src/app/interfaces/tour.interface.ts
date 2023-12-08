@@ -7,8 +7,9 @@ interface ITour {
   ratingQuantity: number;
   price: number;
   imageCover: string;
-  images: string[];
+  images?: string[];
   createdAt: Date;
+  availableSeats: number;
   startDates: Date[];
   startLocation: string;
   location: string[];
